@@ -262,7 +262,7 @@
 [name] == warspike && [quality] <= superior && [flag] == ethereal # [enhanceddamage] == 15 && [tohit] == 3 && [sockets] == 5
 [name] == gloriousaxe && [quality] <= superior && [flag] == ethereal # [sockets] == 5 && [enhanceddamage] == 15
 [name] == decapitator && [quality] <= superior && [flag] == ethereal # [enhanceddamage] == 15 && ([sockets] == 0 || [sockets] == 5)
-//[name] == berserkeraxe && [quality] <= superior && [flag] != ethereal # [enhanceddamage] >= 0 && [sockets] == 5
+[name] == berserkeraxe && [quality] <= superior && [flag] != ethereal # [enhanceddamage] >= 0 && [sockets] == 5
 [name] == berserkeraxe && [quality] <= superior && [flag] == ethereal # [enhanceddamage] == 0 && ([sockets] == 0 || [sockets] == 5)
 
 //          ==unique==
