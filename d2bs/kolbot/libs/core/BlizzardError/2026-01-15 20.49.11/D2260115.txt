@@ -1,0 +1,60 @@
+---------------------------------------------------------------
+DESKTOP-07O583N Realm startup at 2026-01-15 18:11:24.921
+---------------------------------------------------------------
+18:11:24.921  ------------------------------------------------------
+18:11:24.921  2026-01-15 18:11:24
+18:11:24.921  Diablo II running under Windows .Net (Version 6.002)
+18:11:24.921  Vendor:  Intel
+18:11:24.921  Version: Pentium III (no brand) (Type 0, Family 6, Model E, Stepping B, Brand 0)
+18:11:24.932  Speed: Approx. 3600 MHz
+18:11:24.932  Total Physical Memory: 2048.00MB
+18:11:24.932  Application Path: C:\Diablo\Diablo II_2018\Diablo II_2
+18:11:24.935  Local IP: 192.168.1.106
+18:11:24.935  Computer name: DESKTOP-07O583N
+18:11:24.935  ------------------------------------------------------
+18:11:24.935  
+18:11:24.935  imagehlp.dll loaded for better stack crawls.
+18:11:25.178  ........DirectSound progress: 0 buffers available is less than min needed 16 buffers for 3d sound
+18:11:25.189  ........DirectSound progress: 0 buffers available is less than min needed 16 buffers for 3d sound
+---------------------------------------------------------------
+DESKTOP-07O583N Realm startup at 2026-01-15 18:38:31.151
+---------------------------------------------------------------
+18:38:31.151  ------------------------------------------------------
+18:38:31.151  2026-01-15 18:38:31
+18:38:31.151  Diablo II running under Windows .Net (Version 6.002)
+18:38:31.151  Vendor:  Intel
+18:38:31.151  Version: Pentium III (no brand) (Type 0, Family 6, Model E, Stepping B, Brand 0)
+18:38:31.167  Speed: Approx. 3600 MHz
+18:38:31.167  Total Physical Memory: 2048.00MB
+18:38:31.167  Application Path: C:\Diablo\Diablo II_2023\Diablo II_3
+18:38:31.171  Local IP: 192.168.1.106
+18:38:31.171  Computer name: DESKTOP-07O583N
+18:38:31.171  ------------------------------------------------------
+18:38:31.171  
+18:38:31.171  imagehlp.dll loaded for better stack crawls.
+18:38:31.385  ........DirectSound progress: 0 buffers available is less than min needed 16 buffers for 3d sound
+18:38:31.401  ........DirectSound progress: 0 buffers available is less than min needed 16 buffers for 3d sound
+---------------------------------------------------------------
+DESKTOP-07O583N Realm startup at 2026-01-15 18:54:16.285
+---------------------------------------------------------------
+18:54:16.285  ------------------------------------------------------
+18:54:16.285  2026-01-15 18:54:16
+18:54:16.285  Diablo II running under Windows .Net (Version 6.002)
+18:54:16.285  Vendor:  Intel
+18:54:16.285  Version: Pentium III (no brand) (Type 0, Family 6, Model E, Stepping B, Brand 0)
+18:54:16.292  Speed: Approx. 3599 MHz
+18:54:16.292  Total Physical Memory: 2048.00MB
+18:54:16.292  Application Path: C:\Diablo\Diablo II_2023\Diablo II_3
+18:54:16.295  Local IP: 192.168.1.106
+18:54:16.295  Computer name: DESKTOP-07O583N
+18:54:16.295  ------------------------------------------------------
+18:54:16.295  
+18:54:16.295  imagehlp.dll loaded for better stack crawls.
+18:54:16.436  ........DirectSound progress: 0 buffers available is less than min needed 16 buffers for 3d sound
+18:54:16.447  ........DirectSound progress: 0 buffers available is less than min needed 16 buffers for 3d sound
+---finished error callback---
+20:49:10.948  
+***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!
+,129
+Unrecoverable internal error %08x
+*****
