@@ -588,8 +588,11 @@ const Cubing = {
       const recipeObj = Object.assign(baseRecipeObj, extendedOpts);
 
       switch (index) {
-      case Recipe.Gem:
       case Recipe.Token:
+      case Recipe.Gem:
+        if (index === Recipe.Token) {
+          recipeObj.KeyItem = sdk.items.quest.TokenofAbsolution;
+        }
         recipeObj.AlwaysEnabled = true;
 
         break;
@@ -829,10 +832,12 @@ const Cubing = {
 
   /**
    * @param {recipeObj} recipe 
-   * @returns {boolean}
+   * @returns {ItemUnit[] | boolean}
    */
   checkRecipe: function (recipe) {
+    /** @type {number[]} */
     let usedGids = [];
+    /** @type {ItemUnit[]} */
     let matchList = [];
 
     for (let i = 0; i < recipe.Ingredients.length; i += 1) {

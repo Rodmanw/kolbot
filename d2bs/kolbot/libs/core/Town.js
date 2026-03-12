@@ -11,6 +11,7 @@ const Town = {
   lastChores: 0,
   /** @type {Set<number>} */
   dontStashGids: new Set(),
+  choresActive: false,
 
   act: {
     1: {
@@ -123,10 +124,17 @@ const Town = {
 
   ignoredItemTypes: [
     // Items that won't be stashed
-    sdk.items.type.BowQuiver, sdk.items.type.CrossbowQuiver, sdk.items.type.Book,
-    sdk.items.type.Scroll, sdk.items.type.Key, sdk.items.type.HealingPotion,
-    sdk.items.type.ManaPotion, sdk.items.type.RejuvPotion, sdk.items.type.StaminaPotion,
-    sdk.items.type.AntidotePotion, sdk.items.type.ThawingPotion
+    sdk.items.type.BowQuiver,
+    sdk.items.type.CrossbowQuiver,
+    sdk.items.type.Book,
+    sdk.items.type.Scroll,
+    sdk.items.type.Key,
+    sdk.items.type.HealingPotion,
+    sdk.items.type.ManaPotion,
+    sdk.items.type.RejuvPotion,
+    sdk.items.type.StaminaPotion,
+    sdk.items.type.AntidotePotion,
+    sdk.items.type.ThawingPotion
   ],
 
   /**
@@ -157,6 +165,7 @@ const Town = {
     }
 
     try {
+      Town.choresActive = true;
       Pather.allowBroadcast = false;
       if (Config.FastPick && new RegExp(/[default.dbj|main.js]/gi).test(getScript(true).name)) {
         // shopping causes this to bug out sometimes so remove it for duration of chores
@@ -174,6 +183,7 @@ const Town = {
       Town.heal();
       Town.identify();
       Town.clearInventory();
+      Pickit.pickItems();
       Town.fillTome(sdk.items.TomeofTownPortal);
       Town.buyPotions();
       Config.FieldID.Enabled && Town.fillTome(sdk.items.TomeofIdentify);
@@ -188,6 +198,10 @@ const Town = {
       Town.checkQuestItems();
       !!me.getItem(sdk.items.TomeofTownPortal) && Town.clearScrolls();
 
+      if (Config.SortSettings.SortInventory) {
+        Storage.Inventory.SortItems();
+      }
+
       me.act !== preAct && Town.goToTown(preAct);
       me.cancelUIFlags();
       !me.barbarian && Precast.haveCTA === -1 && Precast.doPrecast(false);
@@ -201,6 +215,7 @@ const Town = {
         addEventListener("itemaction", Pickit.itemEvent);
       }
       
+      Town.choresActive = false;
       Pather.allowBroadcast = true;
       Town.lastChores = getTickCount();
     }
@@ -1468,7 +1483,9 @@ const Town = {
   stash: function (stashGold = true) {
     if (!me.needStash()) return true;
 
-    me.cancelUIFlags();
+    if (!getUIFlag(sdk.uiflags.Stash)) {
+      me.cancelUIFlags();
+    }
 
     /** @type {ItemUnit[]} */
     let items = (Storage.Inventory.Compare(Config.Inventory) || [])
@@ -1506,7 +1523,8 @@ const Town = {
     // Stash gold
     if (stashGold) {
       if (me.getStat(sdk.stats.Gold) >= Config.StashGold
-        && me.getStat(sdk.stats.GoldBank) < 25e5 && Town.openStash()) {
+        && me.getStat(sdk.stats.GoldBank) < 25e5 && Town.openStash()
+      ) {
         gold(me.getStat(sdk.stats.Gold), 3);
         delay(1000); // allow UI to initialize
         me.cancel();
@@ -2222,9 +2240,12 @@ const Town = {
       );
     }
 
+    const { ClassIdToLocaleString } = require("./GameData/LocaleStringID");
+
     /**
      * @class
-     * @param {ItemUnit} gem 
+     * @param {ItemUnit} gem
+     * @implements {Partial<ItemUnit>} 
      */
     function GemUnit(gem) {
       this.itemType = gem.itemType;
@@ -2232,11 +2253,31 @@ const Town = {
       this.type = gem.type;
       this.mode = gem.mode;
       this.gid = gem.gid;
+      this.quality = gem.quality;
+      this.ilvl = gem.ilvl;
     }
     // eslint-disable-next-line no-unused-vars
     GemUnit.prototype.getFlag = function (flag) {
       return true;
     };
+
+    GemUnit.prototype.getStat = Unit.prototype.getStat;
+    GemUnit.prototype.getStatEx = Unit.prototype.getStatEx;
+
+    Object.defineProperties(GemUnit.prototype, {
+      name: {
+        /** @this {GemUnit} */
+        get: function () {
+          return ClassIdToLocaleString[this.classid] || "Unknown Gem";
+        },
+      },
+      fname: {
+        /** @this {GemUnit} */
+        get: function () {
+          return ClassIdToLocaleString[this.classid] || "Unknown Gem";
+        },
+      },
+    });
     
     /**
      * @param {ItemUnit} unit 
@@ -2298,7 +2339,11 @@ const Town = {
     }
 
     // stash the bad gems first
-    !isInventoryClean && Town.stash();
+    if (!isInventoryClean) {
+      Town.identify();
+      Town.clearInventory();
+      Town.stash();
+    }
 
     // get any good gem. flawless first (by lvlreq)
     const goodGem = me.getItemsEx()
